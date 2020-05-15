@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class hellocontroller {
 	}
 
 	@RequestMapping("/topic/{name}")
-	public topic topicbyname(@PathVariable String name)
+	public Optional<topic> topicbyname(@PathVariable String name)
 	{
 		System.out.println("helloname");
 		return ts.gettopic(name);
@@ -50,10 +51,10 @@ public class hellocontroller {
 		ts.delete(name);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/update/{name}")
-	public void updatetopic(@RequestBody topic t,@PathVariable String name)
+	@RequestMapping(method=RequestMethod.PUT, value="/update/{age}")
+	public void updatetopic(@RequestBody topic t,@PathVariable int age)
 	{
 		System.out.println("update");
-		ts.update(name,t.getName());
+		ts.update(t);
 	}
 }

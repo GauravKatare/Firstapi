@@ -1,7 +1,11 @@
 package com.example.demo;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class topic {
 
+	@Id
 	private String name;
 	int age,regno;
 	

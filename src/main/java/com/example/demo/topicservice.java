@@ -3,47 +3,36 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class topicservice {
 
-	private List<topic> topics=new ArrayList<>(Arrays.asList(new topic("Gaurav",20178011,20),new topic("Gautam",2017011,17)));
-	
+	@Autowired
+	private topicrepo repo;
+
 	public List<topic> gettopic(){
-		return topics;
+		List<topic> t=new ArrayList<>();
+		repo.findAll().forEach(t::add);
+		return t;
 	}
 	
-	public topic gettopic(String name){
-		return topics.stream().filter(t->t.getName().equals(name)).findFirst().get();
+	public Optional<topic> gettopic(String name){
+		return repo.findById(name);
 	}
 	
 	public void addtopic(topic t){
-		topics.add(t);
+		repo.save(t);
 	}
 
 	public void delete(String name) {
-		for(int i=0;i<topics.size();i++)
-		{
-			topic t=topics.get(i);
-			if(t.getName().equals(name))
-			{
-				topics.remove(i);
-				break;
-			}
-		}
+		repo.deleteById(name);
 	}
 
-	public void update(String name,String newname) {
-		for(int i=0;i<topics.size();i++)
-		{
-			topic t=topics.get(i);
-			if(t.getName().equals(name))
-			{
-				t.setName(newname);
-				break;
-			}
-		}
+	public void update(topic t) {
+		repo.save(t);
 	}
 }
