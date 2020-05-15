@@ -4,6 +4,11 @@ public class topic {
 
 	private String name;
 	int age,regno;
+	
+	public topic() {
+
+	}
+	
 	public topic(String name, int age, int regno) {
 		super();
 		this.name = name;
